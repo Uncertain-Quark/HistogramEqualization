@@ -19,7 +19,8 @@ class HistEq :
 
         # Storing the ranges of histogram bins
         for i in range(num_bins):
-            rangesOneColumn[i,0], rangesOneColumn[i,1] = sortedMelVectorOneColumn[], sortedMelVectorOneColumn[]
+            lowerRange, higherRange = i*int(melVectorOneColumn.shape[0]/num_bins), (i+1)*int(melVectorOneColumn.shape[0]/num_bins)
+            rangesOneColumn[i,0], rangesOneColumn[i,1] = sortedMelVectorOneColumn[lowerRange], sortedMelVectorOneColumn[higherRange]
 
         return rangesOneColumn
 
@@ -34,6 +35,14 @@ class HistEq :
         self.rangesHistogramSource = rangesHistogramSource
         self.rangesHistogramTarget = rangesHistogramTarget
 
+    def storeRangeArray(self,arr,filename):
+        # storing a given numpy array in a text file
+        np.savetxt(filename,arr)
+
     def inference(self,sourceMelSpectrgram):
         # Code to convert a mel spectrogram given source mel spectrogram
+        convertedMelSpectrogram = np.zeros(sourceMelSpectrgram.shape)
+        for i in range(sourceMelSpectrgram.shape[0]):
+            for i in range(sourceMelSpectrgram.shape[1]):
+                # convert each and every element of the source mel spectrogram to the target
         return convertedMelSpectrogram

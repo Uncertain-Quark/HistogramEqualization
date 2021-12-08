@@ -39,10 +39,20 @@ class HistEq :
         # storing a given numpy array in a text file
         np.savetxt(filename,arr)
 
+    def mapSourceTarget(self,value,columnNum):
+        mappedValue = value
+        for i in range(self.rangesHistogramSource.shape[1]):
+            if value >= self.rangesHistogramSource[columnNum,i,0] and value < self.rangesHistogramSource[columnNum,i,1] :
+                mappedValue = (self.rangesHistogramTarget[columnNum,i,0] + self.rangesHistogramTarget[columnNum,i,1])/2
+                break
+        return mappedValue
+
     def inference(self,sourceMelSpectrgram):
         # Code to convert a mel spectrogram given source mel spectrogram
         convertedMelSpectrogram = np.zeros(sourceMelSpectrgram.shape)
         for i in range(sourceMelSpectrgram.shape[0]):
-            for i in range(sourceMelSpectrgram.shape[1]):
+            for j in range(sourceMelSpectrgram.shape[1]):
                 # convert each and every element of the source mel spectrogram to the target
+                convertedArr_ij = self.mapSourceTarget(sourceMelSpectrgram[i,j],j)
+                convertedMelSpectrogram[i,j] = convertedArr_ij
         return convertedMelSpectrogram

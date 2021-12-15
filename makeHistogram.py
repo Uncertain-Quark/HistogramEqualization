@@ -5,12 +5,12 @@ num_bins = 80 # emperical can be any number
 num_columns = 80 # number of mel features in spectrogram
 
 class HistEq :
-    def __init__(self,num_bins,num_columns):
+    def __init__(self,num_bins = num_bins,num_columns = num_columns):
         self.num_bins = num_bins
         self.num_columns = num_columns
         self.rangesHistogramSource, self.rangesHistogramTarget = np.zeros((self.num_columns,self.num_bins,2)), np.zeros((self.num_columns,self.num_bins,2))
 
-    def oneColumnGenerate(melVectorOneColumn):
+    def oneColumnGenerate(self,melVectorOneColumn):
         # Function to return the ranges of the histogram bins for a specific column of Mel Spectrum
         rangesOneColumn = np.zeros((num_bins,2))
 
@@ -29,8 +29,8 @@ class HistEq :
         rangesHistogramSource, rangesHistogramTarget = np.zeros((self.num_columns,self.num_bins,2)), np.zeros((self.num_columns,self.num_bins,2))
 
         for i in range(self.num_columns):
-            rangesHistogramSource[i,:,:] = self.oneColumnGenerate(sourceMelSpectrograms[:,i])
-            rangesHistogramTarget[i,:,:] = self.oneColumnGenerate(targetMelSpectrograms[:,i])
+            rangesHistogramSource[i,:,:] = self.oneColumnGenerate(self,sourceMelSpectrograms[:,i])
+            rangesHistogramTarget[i,:,:] = self.oneColumnGenerate(self,targetMelSpectrograms[:,i])
 
         self.rangesHistogramSource = rangesHistogramSource
         self.rangesHistogramTarget = rangesHistogramTarget

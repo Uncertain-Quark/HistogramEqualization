@@ -9,3 +9,6 @@ Code to perform histogram equalization between two sets of audio files. We use W
 
 ### Instructions
 Firstly, install the dependencies from requirements.txt file.
+
+### Credits
+Code for waveglow taken from : https://github.com/NVIDIA/waveglow

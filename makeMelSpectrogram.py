@@ -2,9 +2,10 @@
 import os, sys, glob
 
 folderWav = sys.argv[1]
+outputPt = sys.argv[2]
 wavFiles = glob.glob(folderWav + '/*.wav')
 
-for wav in wavFiles:
-    # for each wavfile, make the .pt file and the corresponding text file
-    print('Processing {}'.format(wav))
-    
+# Getting .pt files from WAV files
+os.system('ls {}/*.wav > train_files.txt'.format(folderWav))
+os.system('ls {}/*.wav > test_files.txt'.format(folderWav))
+os.system('python mel2samp.py -f test_files.txt -o {} -c config.json'.format(outputPt))

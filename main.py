@@ -29,4 +29,4 @@ for file in targetPtFiles[1:]:
 print(targetMelSpec.shape)
 
 hist_eq_class = HistEq(80,80)
-hist_eq_class.train(sourceMelSpec,targetMelSpec)
+hist_eq_class.train(sourceMelSpec.T,targetMelSpec.T)

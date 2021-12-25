@@ -7,6 +7,8 @@ targetWavFolder = sys.argv[2]
 sourceInferenceWavFolder = sys.argv[3]
 targetInferenceWavFolder = sys.argv[4]
 
+waveglowCheckpoint = '/'
+
 sourcePtFolder = './Source'
 targetPtFolder = './Target'
 sourceInferencePtFolder = './SourceInf'
@@ -43,11 +45,11 @@ hist_eq_class.train(sourceMelSpec.T,targetMelSpec.T)
 for file in sourceInferencePtFiles :
     melInf = torch.load(file).numpy()
     targetMelInf = hist_eq_class.inference(melInf.T)
-    targetMelInfPath = targetInferencePtFolder + '/' + file,rstrip('/').split('/')[-1]
+    targetMelInfPath = targetInferencePtFolder + '/' + file.rstrip('/').split('/')[-1]
     torch.save(targetMelInf.T, targetMelInfPath)
 
 targetInferencePtFiles = glob.glob(targetInferencePtFolder + '/*.pt')
 os.system('ls {}/*.pt > mel_files.txt'.format(targetInferencePtFiles))
-os.system('python3 inference.py -f mel_files.txt -w checkpoints/waveglow_10000 -o {} --is_fp16 -s 0.6'.format(targetInferenceWavFolder))
+os.system('python3 inference.py -f mel_files.txt -w {} -o {} --is_fp16 -s 0.6'.format(waveglowCheckpoint, targetInferenceWavFolder))
 
 #hist_eq_class.inference(sourceMelSpec.T)
